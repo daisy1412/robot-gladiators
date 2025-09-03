@@ -59,6 +59,13 @@ var startGame = function(){
             window.alert("Welcome to Robot Gladiator! Round " + (i+1)); 
             var pickEnemyName = enemyNames[i]; 
             fight(pickEnemyName);
+            if(i < enemyNames.length -1 && playerHealth > 0){
+                var shopConfirm = window.confirm("The fight is over. Would you like to visit the store before the next round?");
+                //NO NEED TO WRITE ELSE BECAUSE ELSE LITERALLY DOES NOTHING
+                if(shopConfirm){
+                    shop();
+                }
+            }
         }else{
             window.alert("You have lost. Game over!"); 
             break; 
@@ -79,6 +86,38 @@ var endGame = function(){
     }else{
         window.alert("Sorry, you have lost."); 
     } 
+}
+var shop = function(){
+    console.log("enter the shop"); 
+    var shopOptionPrompt = window.prompt("Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
+
+    switch(shopOptionPrompt.toLowerCase()){
+        case "refill": 
+            if(playerMoney >= 7){
+                window.alert("Refilling player's health by 20 for $7"); 
+                playerHealth = playerHealth + 20; 
+                playerMoney = playerMoney -7; 
+                break; 
+            }else{
+                window.alert("You don't have enough money.");
+            }      
+        case "upgrade":
+            if(playerMoney >= 7){
+                window.alert("Upgrading player's attack by 6 for $7");
+                playerAttack = playerAttack + 6; 
+                playerMoney = playerMoney - 7;
+                break;
+            }else{
+                window.alert("You don't have enough money.");
+            }      
+        case "leave":
+            window.alert("Leaving the store."); 
+            break; 
+        default:
+            window.alert("Invalid input. Try again. ");
+            shop();
+            break;    //do break for consistency, not actually useful
+    }
 }
 startGame(); 
 
